@@ -1,5 +1,6 @@
 package Packets;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 public class PacketHeader extends PacketHeaderBase {
@@ -9,7 +10,7 @@ public class PacketHeader extends PacketHeaderBase {
     private int packetVersion;
     private int packetId;
     private UUID sessionUID;
-    private double sessionTime;
+    private Timestamp sessionTime;
     private int frameIdentifier;
     private Integer overallFrameIdentifier;
     private int playerCarIndex;
@@ -63,11 +64,11 @@ public class PacketHeader extends PacketHeaderBase {
         this.sessionUID = sessionUID;
     }
 
-    public double getSessionTime() {
+    public Timestamp getSessionTime() {
         return sessionTime;
     }
 
-    public void setSessionTime(double sessionTime) {
+    public void setSessionTime(Timestamp sessionTime) {
         this.sessionTime = sessionTime;
     }
 
@@ -111,11 +112,28 @@ public class PacketHeader extends PacketHeaderBase {
         this.packetVersion = 0;
         this.packetId = 0;
         this.sessionUID = null;
-        this.sessionTime = 0;
+        this.sessionTime = null;
         this.frameIdentifier = 0;
         this.overallFrameIdentifier = null;
         this.playerCarIndex = 0;
         this.secondaryPlayerCarIndex = null;
+    }
+
+    @Override
+    public String toString() {
+        return "PacketHeader{" +
+                "\n\tgameYear=" + gameYear +
+                ",\n\tgameMajorVersion=" + gameMajorVersion +
+                ",\n\tgameMinorVersion=" + gameMinorVersion +
+                ",\n\tpacketVersion=" + packetVersion +
+                ",\n\tpacketId=" + packetId +
+                ",\n\tsessionUID=" + sessionUID +
+                ",\n\tsessionTime=" + sessionTime +
+                ",\n\tframeIdentifier=" + frameIdentifier +
+                ",\n\toverallFrameIdentifier=" + overallFrameIdentifier +
+                ",\n\tplayerCarIndex=" + playerCarIndex +
+                ",\n\tsecondaryPlayerCarIndex=" + secondaryPlayerCarIndex +
+                '}';
     }
 }
 

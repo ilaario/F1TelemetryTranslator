@@ -35,7 +35,7 @@ public class F1TelemetryClient {
         running = true;
         System.out.println("UDP Client listening on port " + port + " 🏎");
 
-        byte[] buffer = new byte[2048]; // Adjust buffer size as needed
+        byte[] buffer = new byte[8192]; // Adjust buffer size as needed
 
         while (running) {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
@@ -57,12 +57,25 @@ public class F1TelemetryClient {
         buffer.order(ByteOrder.LITTLE_ENDIAN);
 
         // Assume the first two bytes represent the packet ID for demonstration purposes
-        int packetFormat = buffer.getShort(); // Example: Reading packet format
+        int packetFormat = buffer.getShort(); /* Example: Reading packet format
+        System.out.println("Packet format: " + packetFormat);
+        int gameYear = buffer.get();
+        System.out.println("Game year: " + gameYear);
+        int gameMaxVersion = buffer.get();
+        System.out.println("Game max version: " + gameMaxVersion);
+        int gameMinorVersion = buffer.get();
+        System.out.println("Game minor version: " + gameMinorVersion);
+        int packetVersion = buffer.get();
+        System.out.println("Packet version: " + packetVersion);
         int packetId = buffer.get(); // Example: Reading packet ID
+        System.out.println("Packet ID: " + packetId);*/
 
-        switch (packetId) {
-            case 0:
-                dispatchEvent(packetId, new PacketMotionDataParser(buffer, packetFormat, bigintEnabled).getData());
+        PacketHeader header = new PacketHeaderParser(packetFormat, bigintEnabled).parse(buffer);
+        System.out.println("Header: " + header);
+
+        switch (header.getPacketId()) {
+            /* case 0:
+                new PacketMotionDataParser(buffer, packetFormat, bigintEnabled);
             case 1:
                 new PacketSessionDataParser(buffer, packetFormat, bigintEnabled);
             case 2:
@@ -75,7 +88,7 @@ public class F1TelemetryClient {
                 new PacketCarSetupDataParser(buffer, packetFormat, bigintEnabled);
             case 6:
                 new PacketCarTelemetryDataParser(buffer, packetFormat, bigintEnabled);
-            case 7:
+             case 7:
                 new PacketCarStatusDataParser(buffer, packetFormat, bigintEnabled);
             case 8:
                 new PacketFinalClassificationDataParser(buffer, packetFormat, bigintEnabled);
@@ -84,10 +97,11 @@ public class F1TelemetryClient {
             case 10:
                 new PacketCarDamageDataParser(buffer, packetFormat, bigintEnabled);
             case 11:
-                new PacketSessionHistoryDataParser(buffer, packetFormat, bigintEnabled);
+                new PacketSessionHistoryDataParser(buffer, packetFormat, bigintEnabled); */
             default:
-                System.out.println("Unknown packet ID: " + packetId);
+                System.out.println("Data: " + buffer.toString());
         }
+        System.out.println("--------------------");
     }
 
     private void dispatchEvent(int packetId, Object data) {

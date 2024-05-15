@@ -4,6 +4,7 @@ import Packets.PacketHeader;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 public class PacketHeaderParser extends F1Parser<PacketHeader> {
@@ -16,11 +17,11 @@ public class PacketHeaderParser extends F1Parser<PacketHeader> {
     }
 
     @Override
-    protected PacketHeader parse(ByteBuffer byteBuffer) {
+    public PacketHeader parse(ByteBuffer byteBuffer) {
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketHeader data = new PacketHeader();
 
-        data.setPacketFormat(byteBuffer.getShort() & 0xFFFF);
+        //data.setPacketFormat(byteBuffer.getShort() & 0xFFFF);
 
         if (packetFormat >= 2023) {
             data.setGameYear(byteBuffer.get() & 0xFF);
@@ -44,7 +45,8 @@ public class PacketHeaderParser extends F1Parser<PacketHeader> {
             byteBuffer.position(byteBuffer.position() + 8); // Skipping 8 bytes
         }
 
-        data.setSessionTime(byteBuffer.getFloat());
+        float sessionTime = byteBuffer.getFloat();
+        data.setSessionTime(floatToTimestamp(sessionTime));
         data.setFrameIdentifier(byteBuffer.getInt());
 
         if (packetFormat >= 2023) {
@@ -58,6 +60,12 @@ public class PacketHeaderParser extends F1Parser<PacketHeader> {
         }
 
         return data;
+    }
+
+    private Timestamp floatToTimestamp(float sessionTime) {
+        long seconds = (long) sessionTime;
+        long millis = (long) ((sessionTime - seconds) * 1000);
+        return new Timestamp(seconds * 1000 + millis);
     }
 }
 
