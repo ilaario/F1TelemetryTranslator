@@ -1,8 +1,10 @@
 package Packets;
 
+import java.util.List;
+
 public class PacketLobbyInfoData extends PacketBase{
     private int m_numPlayers;
-    private LobbyInfoData m_lobbyPlayers;
+    private List<LobbyInfoData> m_lobbyPlayers;
 
     // Getter and Setter
 
@@ -15,11 +17,11 @@ public class PacketLobbyInfoData extends PacketBase{
         return m_numPlayers;
     }
 
-    public void setM_lobbyPlayers(LobbyInfoData m_lobbyPlayers) {
+    public void setM_lobbyPlayers(List<LobbyInfoData> m_lobbyPlayers) {
         this.m_lobbyPlayers = m_lobbyPlayers;
     }
 
-    public LobbyInfoData getM_lobbyPlayers() {
+    public List<LobbyInfoData> getM_lobbyPlayers() {
         return m_lobbyPlayers;
     }
 

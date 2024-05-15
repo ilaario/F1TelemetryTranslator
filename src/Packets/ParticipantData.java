@@ -23,6 +23,9 @@ public class ParticipantData {
         this.m_name = m_name;
     }
 
+    public ParticipantData() {
+    }
+
     public int getM_aiControlled() {
         return m_aiControlled;
     }

@@ -4,19 +4,21 @@ import java.util.List;
 
 public class PacketMotionData extends PacketBase {
     private List<MotionData> carMotionData;
-    private List<Double> suspensionPosition;
-    private List<Double> suspensionVelocity;
-    private List<Double> suspensionAcceleration;
-    private List<Double> wheelSpeed;
-    private List<Double> wheelSlip;
-    private Double localVelocityX;
-    private Double localVelocityY;
-    private Double localVelocityZ;
-    private Double angularVelocityX;
-    private Double angularVelocityY;
-    private Double angularVelocityZ;
-    private Double angularAccelerationX;
-    private Double angularAccelerationY;
+    private float[] suspensionPosition = new float[4];
+    private float[] suspensionVelocity = new float[4];
+    private float[] suspensionAcceleration = new float[4];
+    private float[] wheelSpeed = new float[4];
+    private float[] wheelSlip = new float[4];
+    private float localVelocityX;
+    private float localVelocityY;
+    private float localVelocityZ;
+    private float angularVelocityX;
+    private float angularVelocityY;
+    private float angularVelocityZ;
+    private float angularAccelerationX;
+    private float angularAccelerationY;
+    private float angularAccelerationZ;
+    private float frontWheelsAngle;
 
     // Getters and setters
     public List<MotionData> getCarMotionData() {
@@ -27,108 +29,124 @@ public class PacketMotionData extends PacketBase {
         this.carMotionData = carMotionData;
     }
 
-    public List<Double> getSuspensionPosition() {
+    public float[] getSuspensionPosition() {
         return suspensionPosition;
     }
 
-    public void setSuspensionPosition(List<Double> suspensionPosition) {
+    public void setSuspensionPosition(float[] suspensionPosition) {
         this.suspensionPosition = suspensionPosition;
     }
 
-    public List<Double> getSuspensionVelocity() {
+    public float[] getSuspensionVelocity() {
         return suspensionVelocity;
     }
 
-    public void setSuspensionVelocity(List<Double> suspensionVelocity) {
+    public void setSuspensionVelocity(float[] suspensionVelocity) {
         this.suspensionVelocity = suspensionVelocity;
     }
 
-    public List<Double> getSuspensionAcceleration() {
+    public float[] getSuspensionAcceleration() {
         return suspensionAcceleration;
     }
 
-    public void setSuspensionAcceleration(List<Double> suspensionAcceleration) {
+    public void setSuspensionAcceleration(float[] suspensionAcceleration) {
         this.suspensionAcceleration = suspensionAcceleration;
     }
 
-    public List<Double> getWheelSpeed() {
+    public float[] getWheelSpeed() {
         return wheelSpeed;
     }
 
-    public void setWheelSpeed(List<Double> wheelSpeed) {
+    public void setWheelSpeed(float[] wheelSpeed) {
         this.wheelSpeed = wheelSpeed;
     }
 
-    public List<Double> getWheelSlip() {
+    public float[] getWheelSlip() {
         return wheelSlip;
     }
 
-    public void setWheelSlip(List<Double> wheelSlip) {
+    public void setWheelSlip(float[] wheelSlip) {
         this.wheelSlip = wheelSlip;
     }
 
-    public Double getLocalVelocityX() {
+    public float getLocalVelocityX() {
         return localVelocityX;
     }
 
-    public void setLocalVelocityX(Double localVelocityX) {
+    public void setLocalVelocityX(float localVelocityX) {
         this.localVelocityX = localVelocityX;
     }
 
-    public Double getLocalVelocityY() {
+    public float getLocalVelocityY() {
         return localVelocityY;
     }
 
-    public void setLocalVelocityY(Double localVelocityY) {
+    public void setLocalVelocityY(float localVelocityY) {
         this.localVelocityY = localVelocityY;
     }
 
-    public Double getLocalVelocityZ() {
+    public float getLocalVelocityZ() {
         return localVelocityZ;
     }
 
-    public void setLocalVelocityZ(Double localVelocityZ) {
+    public void setLocalVelocityZ(float localVelocityZ) {
         this.localVelocityZ = localVelocityZ;
     }
 
-    public Double getAngularVelocityX() {
+    public float getAngularVelocityX() {
         return angularVelocityX;
     }
 
-    public void setAngularVelocityX(Double angularVelocityX) {
+    public void setAngularVelocityX(float angularVelocityX) {
         this.angularVelocityX = angularVelocityX;
     }
 
-    public Double getAngularVelocityY() {
+    public float getAngularVelocityY() {
         return angularVelocityY;
     }
 
-    public void setAngularVelocityY(Double angularVelocityY) {
+    public void setAngularVelocityY(float angularVelocityY) {
         this.angularVelocityY = angularVelocityY;
     }
 
-    public Double getAngularVelocityZ() {
+    public float getAngularVelocityZ() {
         return angularVelocityZ;
     }
 
-    public void setAngularVelocityZ(Double angularVelocityZ) {
+    public void setAngularVelocityZ(float angularVelocityZ) {
         this.angularVelocityZ = angularVelocityZ;
     }
 
-    public Double getAngularAccelerationX() {
+    public float getAngularAccelerationX() {
         return angularAccelerationX;
     }
 
-    public void setAngularAccelerationX(Double angularAccelerationX) {
+    public void setAngularAccelerationX(float angularAccelerationX) {
         this.angularAccelerationX = angularAccelerationX;
     }
 
-    public Double getAngularAccelerationY() {
+    public float getAngularAccelerationY() {
         return angularAccelerationY;
     }
 
-    public void setAngularAccelerationY(Double angularAccelerationY) {
+    public void setAngularAccelerationY(float angularAccelerationY) {
         this.angularAccelerationY = angularAccelerationY;
+    }
+
+    public float getAngularAccelerationZ() {
+        return angularAccelerationZ;
+    }
+
+    public void setAngularAccelerationZ(float angularAccelerationZ) {
+        this.angularAccelerationZ = angularAccelerationZ;
+    }
+
+    public float getFrontWheelsAngle() {
+        return frontWheelsAngle;
+    }
+
+    public void setFrontWheelsAngle(float frontWheelsAngle) {
+        this.frontWheelsAngle = frontWheelsAngle;
     }
 }
 
