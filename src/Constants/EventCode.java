@@ -1,23 +1,25 @@
+package Constants;
+
 public enum EventCode {
-    SSTA("SSTA"),
-    SEND("SEND"),
-    FTLP("FTLP"),
-    RTMT("RTMT"),
-    DRSE("DRSE"),
-    DRSD("DRSD"),
-    TMPT("TMPT"),
-    CHQF("CHQF"),
-    RCWN("RCWN"),
-    PENA("PENA"),
-    SPTP("SPTP"),
-    STLG("STLG"),
-    LGOT("LGOT"),
-    DTSV("DTSV"),
-    SGSV("SGSV"),
-    FLBK("FLBK"),
-    BUTN("BUTN"),
-    RDFL("RDFL"),
-    OVTK("OVTK");
+    SessionStarted("SSTA"),
+    SessionEnded("SEND"),
+    FastestLap("FTLP"),
+    Retirement("RTMT"),
+    DRSEnabled("DRSE"),
+    DRSDisabled("DRSD"),
+    TeammateInPits("TMPT"),
+    ChequeredFlag("CHQF"),
+    RaceWinner("RCWN"),
+    PenaltyIssued("PENA"),
+    SpeedTrapTriggered("SPTP"),
+    StartLights("STLG"),
+    LightsOut("LGOT"),
+    DriveThroughServed("DTSV"),
+    StopGoServed("SGSV"),
+    Flashback("FLBK"),
+    ButtonStatus("BUTN"),
+    RedFlag("RDFL"),
+    Overtake("OVTK");
 
     private final String code;
 
@@ -27,5 +29,14 @@ public enum EventCode {
 
     public String getCode() {
         return code;
+    }
+
+    public static EventCode getEventCode(String code) {
+        for (EventCode eventCode : EventCode.values()) {
+            if (eventCode.code.equals(code)) {
+                return eventCode;
+            }
+        }
+        return null;
     }
 }

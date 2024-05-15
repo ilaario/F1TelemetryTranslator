@@ -1,7 +1,9 @@
 package Packets;
 
-public class PenaltyEvent extends PacketBase {
-    private String m_eventStringCode = "PENA";
+import Constants.EventCode;
+
+public class PenaltyEvent extends PacketEvent {
+    private String m_eventStringCode = EventCode.PenaltyIssued.getCode();
     private PenaltyEventDetails m_eventDetails;
 
     // Getter and Setter
