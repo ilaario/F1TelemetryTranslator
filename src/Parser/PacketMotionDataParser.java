@@ -11,6 +11,7 @@ import java.util.List;
 public class PacketMotionDataParser extends F1Parser<PacketMotionData> {
     private final int packetFormat;
     private final boolean bigintEnabled;
+    private PacketMotionData data;
 
     public PacketMotionDataParser(ByteBuffer buffer, int packetFormat, boolean bigintEnabled) {
         this.packetFormat = packetFormat;
@@ -21,7 +22,7 @@ public class PacketMotionDataParser extends F1Parser<PacketMotionData> {
     @Override
     protected PacketMotionData parse(ByteBuffer byteBuffer) {
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-        PacketMotionData data = new PacketMotionData();
+        data = new PacketMotionData();
 
         PacketHeaderParser headerParser = new PacketHeaderParser(packetFormat, bigintEnabled);
         data.setHeader(headerParser.parse(byteBuffer));
@@ -70,6 +71,14 @@ public class PacketMotionDataParser extends F1Parser<PacketMotionData> {
         }
 
         return data;
+    }
+
+    public PacketMotionData getData() {
+        return data;
+    }
+
+    public void setData(PacketMotionData data) {
+        this.data = data;
     }
 }
 
