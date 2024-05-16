@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.CarTelemetryData;
 import Packets.PacketCarTelemetryData;
 
@@ -20,6 +21,10 @@ public class PacketCarTelemetryDataParser extends F1Parser<PacketCarTelemetryDat
 
     @Override
     protected PacketCarTelemetryData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.CAR_TELEMETRY.getSize()) {
+            System.err.println("PCTD Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.MOTION_2022.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketCarTelemetryData data = new PacketCarTelemetryData();
 

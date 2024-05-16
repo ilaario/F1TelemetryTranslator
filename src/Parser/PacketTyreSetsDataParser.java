@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.PacketTyreSetsData;
 import Packets.TyreSetData;
 
@@ -20,6 +21,10 @@ public class PacketTyreSetsDataParser extends F1Parser<PacketTyreSetsData> {
 
     @Override
     protected PacketTyreSetsData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.TYRE_SETS.getSize()) {
+            System.err.println("PTSD Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.TYRE_SETS.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketTyreSetsData data = new PacketTyreSetsData();
 

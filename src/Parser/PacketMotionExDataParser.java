@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.PacketMotionExData;
 
 import java.nio.ByteBuffer;
@@ -19,6 +20,10 @@ public class PacketMotionExDataParser extends F1Parser<PacketMotionExData> {
 
     @Override
     protected PacketMotionExData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.MOTION_EX.getSize()) {
+            System.err.println("PMED Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.MOTION_EX.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketMotionExData data = new PacketMotionExData();
 

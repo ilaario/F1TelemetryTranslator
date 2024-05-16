@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.LapData;
 import Packets.PacketLapData;
 
@@ -20,6 +21,10 @@ public class PacketLapDataParser extends F1Parser<PacketLapData> {
 
     @Override
     protected PacketLapData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.LAP_DATA.getSize()) {
+            System.err.println("PLD Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.LAP_DATA.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketLapData data = new PacketLapData();
 

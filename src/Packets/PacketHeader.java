@@ -9,7 +9,7 @@ public class PacketHeader extends PacketHeaderBase {
     private Integer gameMinorVersion;
     private int packetVersion;
     private int packetId;
-    private UUID sessionUID;
+    private long sessionUID;
     private Timestamp sessionTime;
     private int frameIdentifier;
     private Integer overallFrameIdentifier;
@@ -56,11 +56,11 @@ public class PacketHeader extends PacketHeaderBase {
         this.packetId = packetId;
     }
 
-    public UUID getSessionUID() {
+    public long getSessionUID() {
         return sessionUID;
     }
 
-    public void setSessionUID(UUID sessionUID) {
+    public void setSessionUID(long sessionUID) {
         this.sessionUID = sessionUID;
     }
 
@@ -111,7 +111,7 @@ public class PacketHeader extends PacketHeaderBase {
         this.gameMinorVersion = null;
         this.packetVersion = 0;
         this.packetId = 0;
-        this.sessionUID = null;
+        this.sessionUID = 0;
         this.sessionTime = null;
         this.frameIdentifier = 0;
         this.overallFrameIdentifier = null;
@@ -122,7 +122,8 @@ public class PacketHeader extends PacketHeaderBase {
     @Override
     public String toString() {
         return "PacketHeader{" +
-                "\n\tgameYear=" + gameYear +
+                ",\n\tm_packetFormat=" + getPacketFormat() +
+                ",\n\tgameYear=" + gameYear +
                 ",\n\tgameMajorVersion=" + gameMajorVersion +
                 ",\n\tgameMinorVersion=" + gameMinorVersion +
                 ",\n\tpacketVersion=" + packetVersion +

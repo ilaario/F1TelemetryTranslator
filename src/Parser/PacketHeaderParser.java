@@ -21,7 +21,7 @@ public class PacketHeaderParser extends F1Parser<PacketHeader> {
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketHeader data = new PacketHeader();
 
-        //data.setPacketFormat(byteBuffer.getShort() & 0xFFFF);
+        data.setPacketFormat(byteBuffer.getShort() & 0xFFFF);
 
         if (packetFormat >= 2023) {
             data.setGameYear(byteBuffer.get() & 0xFF);
@@ -38,9 +38,9 @@ public class PacketHeaderParser extends F1Parser<PacketHeader> {
         }
 
         if (bigintEnabled) {
-            long mostSigBits = byteBuffer.getLong();
-            long leastSigBits = byteBuffer.getLong();
-            data.setSessionUID(new UUID(mostSigBits, leastSigBits));
+            //dont use UUID
+            long sessionId = byteBuffer.getLong();
+            data.setSessionUID(sessionId);
         } else {
             byteBuffer.position(byteBuffer.position() + 8); // Skipping 8 bytes
         }

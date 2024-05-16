@@ -1,5 +1,6 @@
 package Packets;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PacketMotionData extends PacketBase {
@@ -147,6 +148,27 @@ public class PacketMotionData extends PacketBase {
 
     public void setFrontWheelsAngle(float frontWheelsAngle) {
         this.frontWheelsAngle = frontWheelsAngle;
+    }
+
+    @Override
+    public String toString() {
+        return "PacketMotionData{" +
+                "\n\tsuspensionPosition=" + Arrays.toString(suspensionPosition) +
+                ",\n\tsuspensionVelocity=" + Arrays.toString(suspensionVelocity) +
+                ",\n\tsuspensionAcceleration=" + Arrays.toString(suspensionAcceleration) +
+                ",\n\twheelSpeed=" + Arrays.toString(wheelSpeed) +
+                ",\n\twheelSlip=" + Arrays.toString(wheelSlip) +
+                ",\n\tlocalVelocityX=" + localVelocityX +
+                ",\n\tlocalVelocityY=" + localVelocityY +
+                ",\n\tlocalVelocityZ=" + localVelocityZ +
+                ",\n\tangularVelocityX=" + angularVelocityX +
+                ",\n\tangularVelocityY=" + angularVelocityY +
+                ",\n\tangularVelocityZ=" + angularVelocityZ +
+                ",\n\tangularAccelerationX=" + angularAccelerationX +
+                ",\n\tangularAccelerationY=" + angularAccelerationY +
+                ",\n\tangularAccelerationZ=" + angularAccelerationZ +
+                ",\n\tfrontWheelsAngle=" + frontWheelsAngle +
+                '}';
     }
 }
 

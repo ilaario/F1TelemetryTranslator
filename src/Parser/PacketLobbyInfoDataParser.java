@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.LobbyInfoData;
 import Packets.PacketLobbyInfoData;
 
@@ -20,6 +21,10 @@ public class PacketLobbyInfoDataParser extends F1Parser<PacketLobbyInfoData> {
 
     @Override
     protected PacketLobbyInfoData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.LOBBY_INFO.getSize()) {
+            System.err.println("PLID Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.LOBBY_INFO.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketLobbyInfoData data = new PacketLobbyInfoData();
 

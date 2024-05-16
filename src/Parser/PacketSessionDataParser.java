@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.MarshalZone;
 import Packets.PacketSessionData;
 import Packets.WeatherForecastSample;
@@ -21,6 +22,10 @@ public class PacketSessionDataParser extends F1Parser<PacketSessionData> {
 
     @Override
     protected PacketSessionData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.SESSION.getSize()) {
+            System.err.println("PSD Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.SESSION.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketSessionData data = new PacketSessionData();
 

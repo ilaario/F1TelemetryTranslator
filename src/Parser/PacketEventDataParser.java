@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.*;
 import Constants.EventCode;
 
@@ -28,6 +29,10 @@ public class PacketEventDataParser extends F1Parser<PacketEvent> {
 
     @Override
     protected PacketEvent parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.EVENT.getSize()) {
+            System.err.println("PED Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.EVENT.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketEvent data = new PacketEvent();
 

@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.CarSetupData;
 import Packets.PacketCarSetupData;
 
@@ -20,6 +21,10 @@ public class PacketCarSetupDataParser extends F1Parser<PacketCarSetupData> {
 
     @Override
     protected PacketCarSetupData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.CAR_SETUPS.getSize()) {
+            System.err.println("PCSD Error: Packet size is too small. \n\tExpected at least " + PacketSize.CAR_SETUPS.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketCarSetupData data = new PacketCarSetupData();
 

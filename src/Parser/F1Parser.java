@@ -21,5 +21,12 @@ public abstract class F1Parser<T> {
      * @return an object of type T parsed from the ByteBuffer.
      */
     protected abstract T parse(ByteBuffer byteBuffer);
+
+    public static int getRemainingBytes(ByteBuffer buffer) {
+        if (buffer == null) {
+            throw new IllegalArgumentException("ByteBuffer non può essere null");
+        }
+        return buffer.remaining();  // Questo metodo ritorna il numero di elementi tra la position e il limit.
+    }
 }
 

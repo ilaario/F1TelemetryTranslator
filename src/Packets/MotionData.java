@@ -165,4 +165,18 @@ public class MotionData {
         super();
     }
 
+    public int getWorldForwardDirZ() {
+        return worldForwardDirZ;
+    }
+
+    @Override
+    public String toString() {
+        return "MotionData [\n\t\tgForceLateral=" + gForceLateral + ",\n\t\tgForceLongitudinal=" + gForceLongitudinal
+                + ",\n\t\tgForceVertical=" + gForceVertical + ",\n\t\tpitch=" + pitch + ",\n\t\troll=" + roll + ",\n\t\tworldForwardDirX="
+                + worldForwardDirX + ",\n\t\tworldForwardDirY=" + worldForwardDirY + ",\n\t\tworldForwardDirZ=" + worldForwardDirZ
+                + ",\n\t\tworldPositionX=" + worldPositionX + ",\n\t\tworldPositionY=" + worldPositionY + ",\n\t\tworldPositionZ="
+                + worldPositionZ + ", worldRightDirX=" + worldRightDirX + ", worldRightDirY=" + worldRightDirY
+                + ",\n\t\tworldRightDirZ=" + worldRightDirZ + ",\n\t\tworldVelocityX=" + worldVelocityX + ",\n\t\tworldVelocityY="
+                + worldVelocityY + ",\n\t\tworldVelocityZ=" + worldVelocityZ + ",\n\t\tyaw=" + yaw + "]";
+    }
 }

@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.PacketParticipantsData;
 import Packets.ParticipantData;
 
@@ -20,6 +21,10 @@ public class PacketParticipantsDataParser extends F1Parser<PacketParticipantsDat
 
     @Override
     protected PacketParticipantsData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.PARTICIPANTS.getSize()) {
+            System.err.println("PPD Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.PARTICIPANTS.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketParticipantsData data = new PacketParticipantsData();
 

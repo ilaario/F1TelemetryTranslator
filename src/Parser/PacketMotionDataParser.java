@@ -2,6 +2,7 @@ package Parser;
 
 import Packets.MotionData;
 import Packets.PacketMotionData;
+import Constants.*;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -16,11 +17,14 @@ public class PacketMotionDataParser extends F1Parser<PacketMotionData> {
         this.packetFormat = packetFormat;
         this.bigintEnabled = bigintEnabled;
         parse(buffer); // Immediately parse the buffer upon instantiation
-
     }
 
     @Override
     protected PacketMotionData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.MOTION.getSize()) {
+            System.err.println("PMD Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.MOTION.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketMotionData data = new PacketMotionData();
 
@@ -30,7 +34,7 @@ public class PacketMotionDataParser extends F1Parser<PacketMotionData> {
         int numberOfCars = packetFormat >= 2020 ? 22 : 20;
         List<MotionData> carMotionDataList = new ArrayList<>();
         CarMotionDataParser carMotionDataParser = new CarMotionDataParser();
-        for (int i = 0; i < numberOfCars; i++) {
+        for (int i = 0; i < 20; i++) {
             carMotionDataList.add(carMotionDataParser.parse(byteBuffer));
         }
         data.setCarMotionData(carMotionDataList);
@@ -70,6 +74,7 @@ public class PacketMotionDataParser extends F1Parser<PacketMotionData> {
             data.setFrontWheelsAngle(byteBuffer.getFloat());
         }
 
+        System.out.println("\n" + data.toString() + "\n");
         return data;
     }
 }

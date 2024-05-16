@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.LapHistoryData;
 import Packets.PacketSessionHistoryData;
 import Packets.TyreStintsHistoryData;
@@ -21,6 +22,10 @@ public class PacketSessionHistoryDataParser extends F1Parser<PacketSessionHistor
 
     @Override
     protected PacketSessionHistoryData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.SESSION_HISTORY.getSize()) {
+            System.err.println("PSHD Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.SESSION_HISTORY.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketSessionHistoryData data = new PacketSessionHistoryData();
 

@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.FinalClassificationData;
 import Packets.PacketFinalClassificationData;
 
@@ -20,6 +21,10 @@ public class PacketFinalClassificationDataParser extends F1Parser<PacketFinalCla
 
     @Override
     protected PacketFinalClassificationData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.FINAL_CLASSIFICATION.getSize()) {
+            System.err.println("PFCD Error: Motion packet size is too small. \n\tExpected at least " + PacketSize.FINAL_CLASSIFICATION.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketFinalClassificationData data = new PacketFinalClassificationData();
 

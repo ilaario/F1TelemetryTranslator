@@ -1,5 +1,6 @@
 package Parser;
 
+import Constants.PacketSize;
 import Packets.CarStatusData;
 import Packets.PacketCarStatusData;
 
@@ -20,6 +21,10 @@ public class PacketCarStatusDataParser extends F1Parser<PacketCarStatusData> {
 
     @Override
     protected PacketCarStatusData parse(ByteBuffer byteBuffer) {
+        if (getRemainingBytes(byteBuffer) < PacketSize.CAR_STATUS.getSize()) {
+            System.err.println("PCSTD Error:  Packet size is too small. \n\tExpected at least " + PacketSize.CAR_STATUS.getSize() + " bytes.\n\tReceived " + getRemainingBytes(byteBuffer) + " bytes.");
+            return null;
+        }
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         PacketCarStatusData data = new PacketCarStatusData();
 
@@ -29,10 +34,12 @@ public class PacketCarStatusDataParser extends F1Parser<PacketCarStatusData> {
         int numberOfStatuses = packetFormat >= 2020 ? 22 : 20;
         List<CarStatusData> carStatusDataList = new ArrayList<>();
         CarStatusDataParser carStatusDataParser = new CarStatusDataParser(packetFormat);
-        for (int i = 0; i < numberOfStatuses; i++) {
+        for (int i = 0; i < 20; i++) {
             carStatusDataList.add(carStatusDataParser.parse(byteBuffer));
+            System.out.println("\tCar n" + i + " status = " + carStatusDataList.get(i).toString());
         }
         data.setCarStatusData(carStatusDataList);
+        System.out.println("Car status data: " + data.getCarStatusData().toString());
 
         return data;
     }
